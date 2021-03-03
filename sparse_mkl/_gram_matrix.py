@@ -1,7 +1,7 @@
-from sparse_dot_mkl._mkl_interface import (MKL, sparse_matrix_t, _create_mkl_sparse,
-                                           _export_mkl, _order_mkl_handle, _destroy_mkl_handle, _type_check,
-                                           _get_numpy_layout, _convert_to_csr, _empty_output_check, LAYOUT_CODE_C,
-                                           _out_matrix, _check_return_value, debug_print)
+from sparse_mkl._mkl_interface import (MKL, sparse_matrix_t, _create_mkl_sparse,
+                                       _export_mkl, _order_mkl_handle, _destroy_mkl_handle, _type_check,
+                                       _get_numpy_layout, _convert_to_csr, _empty_output_check, LAYOUT_CODE_C,
+                                       _out_matrix, _check_return_value, debug_print)
 
 import scipy.sparse as _sps
 import ctypes as _ctypes

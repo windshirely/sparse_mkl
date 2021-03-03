@@ -1,8 +1,8 @@
 import unittest
 import numpy as np
 import numpy.testing as npt
-from sparse_dot_mkl import gram_matrix_mkl
-from sparse_dot_mkl.tests.test_mkl import MATRIX_1
+from sparse_mkl import gram_matrix_mkl
+from sparse_mkl.tests.test_mkl import MATRIX_1
 
 
 class TestGramMatrix(unittest.TestCase):

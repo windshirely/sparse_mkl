@@ -1,6 +1,6 @@
-from sparse_dot_mkl._mkl_interface import (MKL, _sanity_check, _get_numpy_layout, _type_check, _create_mkl_sparse,
-                                           _destroy_mkl_handle, matrix_descr, RETURN_CODES, _convert_to_csr,
-                                           _check_return_value, LAYOUT_CODE_C)
+from sparse_mkl._mkl_interface import (MKL, _sanity_check, _get_numpy_layout, _type_check, _create_mkl_sparse,
+                                       _destroy_mkl_handle, matrix_descr, RETURN_CODES, _convert_to_csr,
+                                       _check_return_value, LAYOUT_CODE_C)
 
 import numpy as np
 import ctypes as _ctypes

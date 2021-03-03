@@ -1,5 +1,5 @@
-from sparse_dot_mkl._mkl_interface import (MKL, _type_check, _sanity_check, _empty_output_check, _get_numpy_layout,
-                                           LAYOUT_CODE_C, LAYOUT_CODE_F, _out_matrix, debug_print)
+from sparse_mkl._mkl_interface import (MKL, _type_check, _sanity_check, _empty_output_check, _get_numpy_layout,
+                                       LAYOUT_CODE_C, LAYOUT_CODE_F, _out_matrix, debug_print)
 
 import numpy as np
 import ctypes as _ctypes

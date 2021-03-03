@@ -12,9 +12,9 @@ import unittest
 import numpy as np
 import numpy.testing as npt
 import scipy.sparse as _spsparse
-from sparse_dot_mkl import dot_product_mkl
-from sparse_dot_mkl._mkl_interface import (_create_mkl_sparse, _export_mkl, sparse_matrix_t, _destroy_mkl_handle,
-                                           _convert_to_csr, _order_mkl_handle, MKL)
+from sparse_mkl import dot_product_mkl
+from sparse_mkl._mkl_interface import (_create_mkl_sparse, _export_mkl, sparse_matrix_t, _destroy_mkl_handle,
+                                       _convert_to_csr, _order_mkl_handle, MKL)
 
 SEED = 86
 
@@ -223,13 +223,13 @@ class TestHandles(unittest.TestCase):
 
 
 def run():
-    unittest.main(module='sparse_dot_mkl.tests.test_mkl')
-    unittest.main(module='sparse_dot_mkl.tests.test_gram_matrix')
-    unittest.main(module='sparse_dot_mkl.tests.test_sparse_sparse')
-    unittest.main(module='sparse_dot_mkl.tests.test_sparse_dense')
-    unittest.main(module='sparse_dot_mkl.tests.test_dense_dense')
-    unittest.main(module='sparse_dot_mkl.tests.test_qr_solver')
-    unittest.main(module='sparse_dot_mkl.tests.test_sparse_vector')
+    unittest.main(module='sparse_mkl.tests.test_mkl')
+    unittest.main(module='sparse_mkl.tests.test_gram_matrix')
+    unittest.main(module='sparse_mkl.tests.test_sparse_sparse')
+    unittest.main(module='sparse_mkl.tests.test_sparse_dense')
+    unittest.main(module='sparse_mkl.tests.test_dense_dense')
+    unittest.main(module='sparse_mkl.tests.test_qr_solver')
+    unittest.main(module='sparse_mkl.tests.test_sparse_vector')
 
 
 if __name__ == '__main__':

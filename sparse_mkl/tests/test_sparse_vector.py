@@ -2,8 +2,8 @@ import unittest
 import numpy as np
 import numpy.testing as npt
 import scipy.sparse as _spsparse
-from sparse_dot_mkl import dot_product_mkl
-from sparse_dot_mkl.tests.test_mkl import MATRIX_1, MATRIX_2, VECTOR
+from sparse_mkl import dot_product_mkl
+from sparse_mkl.tests.test_mkl import MATRIX_1, MATRIX_2, VECTOR
 
 
 class TestSparseVectorMultiplication(unittest.TestCase):

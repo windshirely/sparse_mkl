@@ -146,6 +146,14 @@ class MKL:
     # https://software.intel.com/en-us/mkl-developer-reference-c-mkl-sparse-mm
     _mkl_sparse_d_mm = _libmkl.mkl_sparse_d_mm
 
+    # Import function for matmul single sparse*dense
+    # https://software.intel.com/en-us/mkl-developer-reference-c-mkl-sparse-mm
+    _mkl_sparse_s_add = _libmkl.mkl_sparse_s_add
+
+    # Import function for matmul single sparse*dense
+    # https://software.intel.com/en-us/mkl-developer-reference-c-mkl-sparse-mm
+    _mkl_sparse_d_add = _libmkl.mkl_sparse_d_add
+
     # Import function for matmul single dense*dense
     # https://software.intel.com/en-us/mkl-developer-reference-c-cblas-gemm
     _cblas_sgemm = _libmkl.cblas_sgemm
@@ -257,6 +265,12 @@ class MKL:
 
         cls._mkl_sparse_d_mm.argtypes = cls._mkl_sparse_mm_argtypes(_ctypes.c_double)
         cls._mkl_sparse_d_mm.restypes = _ctypes.c_int
+
+        cls._mkl_sparse_s_add.argtypes = cls._mkl_sparse_add_argtypes(_ctypes.c_float)
+        cls._mkl_sparse_s_add.restypes = _ctypes.c_int
+
+        cls._mkl_sparse_d_add.argtypes = cls._mkl_sparse_add_argtypes(_ctypes.c_double)
+        cls._mkl_sparse_d_add.restypes = _ctypes.c_int
 
         cls._cblas_sgemm.argtypes = cls._cblas_gemm_argtypes(_ctypes.c_float)
         cls._cblas_sgemm.restypes = None
@@ -399,6 +413,14 @@ class MKL:
                 prec_type,
                 _ctypes.POINTER(prec_type),
                 MKL.MKL_INT]
+
+    @staticmethod
+    def _mkl_sparse_add_argtypes(prec_type):
+        return [_ctypes.c_int,
+                sparse_matrix_t,
+                prec_type,
+                sparse_matrix_t,
+                _ctypes.POINTER(sparse_matrix_t)]
 
     @staticmethod
     def _mkl_sparse_mv_argtypes(prec_type):

@@ -2,8 +2,8 @@ import unittest
 import numpy as np
 import numpy.testing as npt
 import scipy.sparse as _spsparse
-from sparse_dot_mkl import sparse_qr_solve_mkl
-from sparse_dot_mkl.tests.test_mkl import MATRIX_1
+from sparse_mkl import sparse_qr_solve_mkl
+from sparse_mkl.tests.test_mkl import MATRIX_1
 
 
 class TestSparseSolver(unittest.TestCase):

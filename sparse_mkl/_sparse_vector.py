@@ -1,6 +1,6 @@
-from sparse_dot_mkl._mkl_interface import (MKL, _sanity_check, _empty_output_check, _type_check, _create_mkl_sparse,
-                                           _destroy_mkl_handle, matrix_descr, RETURN_CODES, _is_dense_vector,
-                                           _out_matrix, _check_return_value, _is_allowed_sparse_format)
+from sparse_mkl._mkl_interface import (MKL, _sanity_check, _empty_output_check, _type_check, _create_mkl_sparse,
+                                       _destroy_mkl_handle, matrix_descr, RETURN_CODES, _is_dense_vector,
+                                       _out_matrix, _check_return_value, _is_allowed_sparse_format)
 
 import numpy as np
 import ctypes as _ctypes

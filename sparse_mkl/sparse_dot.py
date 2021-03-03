@@ -1,10 +1,11 @@
-from sparse_dot_mkl._sparse_sparse import _sparse_dot_sparse as _sds
-from sparse_dot_mkl._sparse_dense import _sparse_dot_dense as _sdd
-from sparse_dot_mkl._dense_dense import _dense_dot_dense as _ddd
-from sparse_dot_mkl._sparse_vector import _sparse_dot_vector as _sdv
-from sparse_dot_mkl._gram_matrix import _gram_matrix as _gm
-from sparse_dot_mkl._sparse_qr_solver import sparse_qr_solver as _qrs
-from sparse_dot_mkl._mkl_interface import print_mkl_debug, _is_dense_vector, set_debug_mode, get_version_string
+from sparse_mkl._sparse_sparse import _sparse_dot_sparse as _sds
+from sparse_mkl._sparse_sparse import _sparse_add_sparse as _sas
+from sparse_mkl._sparse_dense import _sparse_dot_dense as _sdd
+from sparse_mkl._dense_dense import _dense_dot_dense as _ddd
+from sparse_mkl._sparse_vector import _sparse_dot_vector as _sdv
+from sparse_mkl._gram_matrix import _gram_matrix as _gm
+from sparse_mkl._sparse_qr_solver import sparse_qr_solver as _qrs
+from sparse_mkl._mkl_interface import print_mkl_debug, _is_dense_vector, set_debug_mode, get_version_string
 import scipy.sparse as _spsparse
 import numpy as _np
 import warnings
@@ -35,7 +36,7 @@ def dot_product_mkl(matrix_a, matrix_b, cast=False, copy=True, reorder_output=Fa
     This does not require any copy and is memory efficient if the output array density is > 50%
     Note that this flag has no effect if one input array is dense; then the output will always be dense
     :type dense: bool
-    :param debug: Deprecated debug flag. Use `sparse_dot_mkl.set_debug_mode(True)`
+    :param debug: Deprecated debug flag. Use `sparse_mkl.set_debug_mode(True)`
     :type debug: bool
     :param out: Add the dot product to this array if provided.
     :type out: np.ndarray, None
@@ -45,7 +46,7 @@ def dot_product_mkl(matrix_a, matrix_b, cast=False, copy=True, reorder_output=Fa
     :rtype: scipy.sparse.csr_matrix, scipy.sparse.csc_matrix, np.ndarray
     """
 
-    warnings.warn("Set debug mode with sparse_dot_mkl.set_debug_mode(True)", DeprecationWarning) if debug else None
+    warnings.warn("Set debug mode with sparse_mkl.set_debug_mode(True)", DeprecationWarning) if debug else None
     print_mkl_debug()
 
     num_sparse = sum((_spsparse.issparse(matrix_a), _spsparse.issparse(matrix_b)))
@@ -80,6 +81,14 @@ def dot_product_mkl(matrix_a, matrix_b, cast=False, copy=True, reorder_output=Fa
     else:
         return _ddd(matrix_a, matrix_b, cast=cast, out=out, out_scalar=out_scalar)
 
+def add_mkl(matrix_a, matrix_b, cast=False, copy=True, reorder_output=False, dense=False, debug=False,
+                    out=None, out_scalar=None):
+
+    warnings.warn("Set debug mode with sparse_mkl.set_debug_mode(True)", DeprecationWarning) if debug else None
+    print_mkl_debug()
+
+    return _sas(matrix_a, matrix_b)
+
 
 def gram_matrix_mkl(matrix, transpose=False, cast=False, dense=False, debug=False, reorder_output=False,
                     out=None, out_scalar=None):
@@ -97,7 +106,7 @@ def gram_matrix_mkl(matrix, transpose=False, cast=False, dense=False, debug=Fals
     :type cast: bool
     :param dense: Produce a dense matrix output instead of a sparse matrix
     :type dense: bool
-    :param debug: Deprecated debug flag. Use `sparse_dot_mkl.set_debug_mode(True)`
+    :param debug: Deprecated debug flag. Use `sparse_mkl.set_debug_mode(True)`
     :type debug: bool
     :param reorder_output: Should the array indices be reordered using MKL
     The scipy sparse dot product does not yield ordered column indices so this defaults to False
@@ -109,7 +118,7 @@ def gram_matrix_mkl(matrix, transpose=False, cast=False, dense=False, debug=Fals
     :return: Gram matrix
     :rtype: scipy.sparse.csr_matrix, np.ndarray"""
 
-    warnings.warn("Set debug mode with sparse_dot_mkl.set_debug_mode(True)", DeprecationWarning) if debug else None
+    warnings.warn("Set debug mode with sparse_mkl.set_debug_mode(True)", DeprecationWarning) if debug else None
     print_mkl_debug()
 
     return _gm(matrix, transpose=transpose, cast=cast, dense=dense, reorder_output=reorder_output,
@@ -128,13 +137,13 @@ def sparse_qr_solve_mkl(matrix_a, matrix_b, cast=False, debug=False):
     and should a CSR matrix be cast to a CSC matrix.
     Defaults to False
     :type cast: bool
-    :param debug: Deprecated debug flag. Use `sparse_dot_mkl.set_debug_mode(True)`
+    :param debug: Deprecated debug flag. Use `sparse_mkl.set_debug_mode(True)`
     :type debug: bool
     :return: Dense array X
     :rtype: np.ndarray
     """
 
-    warnings.warn("Set debug mode with sparse_dot_mkl.set_debug_mode(True)", DeprecationWarning) if debug else None
+    warnings.warn("Set debug mode with sparse_mkl.set_debug_mode(True)", DeprecationWarning) if debug else None
     print_mkl_debug()
 
     return _qrs(matrix_a, matrix_b, cast=cast)
@@ -142,3 +151,21 @@ def sparse_qr_solve_mkl(matrix_a, matrix_b, cast=False, debug=False):
   
 # Alias for backwards compatibility
 dot_product_transpose_mkl = gram_matrix_mkl
+
+if __name__=='__main__':
+    import scipy.sparse as ss
+    import numpy as np
+    import time
+    nd = 20000
+    a = ss.random(nd, nd, density=0.1, format='csr', dtype=np.float32)
+    b = ss.random(nd, nd, density=0.1, format='csr', dtype=np.float32)
+    t1 = time.time()
+    for i in range(10):
+        c1 = a + b
+    t2 = time.time()
+    for i in range(10):
+        c0 = add_mkl(a, b)
+    t3 = time.time()
+    print(t2-t1, t3-t2)
+    # c = c0-c1
+    # print(c.max())

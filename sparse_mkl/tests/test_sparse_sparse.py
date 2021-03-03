@@ -2,10 +2,10 @@ import unittest
 import numpy as np
 import numpy.testing as npt
 import scipy.sparse as _spsparse
-from sparse_dot_mkl import dot_product_mkl
-from sparse_dot_mkl._mkl_interface import _create_mkl_sparse, _export_mkl, sparse_matrix_t, set_debug_mode
-from sparse_dot_mkl._sparse_sparse import _matmul_mkl
-from sparse_dot_mkl.tests.test_mkl import MATRIX_1, MATRIX_2, make_matrixes
+from sparse_mkl import dot_product_mkl
+from sparse_mkl._mkl_interface import _create_mkl_sparse, _export_mkl, sparse_matrix_t, set_debug_mode
+from sparse_mkl._sparse_sparse import _matmul_mkl
+from sparse_mkl.tests.test_mkl import MATRIX_1, MATRIX_2, make_matrixes
 
 
 class TestMultiplicationCSR(unittest.TestCase):

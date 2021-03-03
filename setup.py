@@ -1,12 +1,13 @@
 import os
 from setuptools import setup, find_packages
 
-DISTNAME = 'sparse_dot_mkl'
-VERSION = '0.7.0'
-DESCRIPTION = "Intel MKL wrapper for sparse matrix multiplication"
-MAINTAINER = 'Chris Jackson'
-MAINTAINER_EMAIL = 'cj59@nyu.edu'
-URL = 'https://github.com/flatironinstitute/sparse_dot'
+DISTNAME = 'sparse_mkl'
+VERSION = '0.1.0'
+DESCRIPTION = "Intel MKL wrapper for sparse matrix multiplication and addition, " \
+              "all these are based on Chris Jackson's code, ref: https://github.com/flatironinstitute/sparse_dot"
+MAINTAINER = 'Yang'
+MAINTAINER_EMAIL = ''
+URL = ''
 LICENSE = 'MIT'
 
 # Description from README.md
@@ -22,7 +23,7 @@ setup(name=DISTNAME,
       author=MAINTAINER,
       author_email=MAINTAINER_EMAIL,
       license=LICENSE,
-      packages=find_packages(include=['sparse_dot_mkl', "sparse_dot_mkl.*"]),
+      packages=find_packages(include=['sparse_mkl', "sparse_mkl.*"]),
       install_requires=['numpy', 'scipy'],
       tests_require=['nose', 'coverage'],
       test_suite="nose.collector",
